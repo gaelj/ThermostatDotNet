@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThermostatDotNet.Runner", "ThermostatDotNet.Runner\ThermostatDotNet.Runner.csproj", "{FA5F3ECD-5867-4D36-8B07-29638EF3C0CA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThermostatDotNet.Client", "ThermostatDotNet.Client\ThermostatDotNet.Client.csproj", "{5AB4D176-D974-435E-A52A-70AF2B311BF7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,17 @@ Global
 		{FA5F3ECD-5867-4D36-8B07-29638EF3C0CA}.Release|x64.Build.0 = Release|Any CPU
 		{FA5F3ECD-5867-4D36-8B07-29638EF3C0CA}.Release|x86.ActiveCfg = Release|Any CPU
 		{FA5F3ECD-5867-4D36-8B07-29638EF3C0CA}.Release|x86.Build.0 = Release|Any CPU
+		{5AB4D176-D974-435E-A52A-70AF2B311BF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AB4D176-D974-435E-A52A-70AF2B311BF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AB4D176-D974-435E-A52A-70AF2B311BF7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5AB4D176-D974-435E-A52A-70AF2B311BF7}.Debug|x64.Build.0 = Debug|Any CPU
+		{5AB4D176-D974-435E-A52A-70AF2B311BF7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5AB4D176-D974-435E-A52A-70AF2B311BF7}.Debug|x86.Build.0 = Debug|Any CPU
+		{5AB4D176-D974-435E-A52A-70AF2B311BF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AB4D176-D974-435E-A52A-70AF2B311BF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AB4D176-D974-435E-A52A-70AF2B311BF7}.Release|x64.ActiveCfg = Release|Any CPU
+		{5AB4D176-D974-435E-A52A-70AF2B311BF7}.Release|x64.Build.0 = Release|Any CPU
+		{5AB4D176-D974-435E-A52A-70AF2B311BF7}.Release|x86.ActiveCfg = Release|Any CPU
+		{5AB4D176-D974-435E-A52A-70AF2B311BF7}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
