@@ -1,8 +1,27 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
-  </PropertyGroup>
-
+        <AssemblyName>ThermostatDotNet.Client</AssemblyName>
+        <RootNamespace>ThermostatDotNet.Client</RootNamespace>
+        <GenerateCode>true</GenerateCode>
+        <IsPackable>true</IsPackable>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+        <PackageReference Include="NSwag.MSBuild" Version="13.10.1">
+            <PrivateAssets>All</PrivateAssets>
+        </PackageReference>
+    </ItemGroup>
+    <Target Name="NSwag" BeforeTargets="BeforeBuild;BeforeRebuild" DependsOnTargets="UpdateGeneratedFiles">
+        <Exec Command="$(NSwagExe_Net50) run nswag.json /variables:Configuration=$(Configuration)" />
+    </Target>
+    <Target Name="UpdateGeneratedFiles" BeforeTargets="BeforeBuild;BeforeRebuild">
+        <ItemGroup>
+            <Compile Include="Client.g.cs" Condition="!Exists('Client.g.cs')" />
+            <Compile Include="Contracts.g.cs" Condition="!Exists('Contracts.g.cs')" />
+        </ItemGroup>
+    </Target>
 </Project>

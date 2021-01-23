@@ -1,0 +1,229 @@
+openapi: '3.0.2'
+info:
+  title: Domoticz API
+  version: '1.0'
+
+servers:
+  - url: https://192.168.30.143/
+  - url: https://localhost/
+
+tags:
+  - name: domoticz
+
+paths:
+  /json.htm:
+    get:
+      operationId: Query
+      tags:
+        - domoticz
+      parameters:
+
+      - name: type
+        in: query
+        description: domoticz query type
+        schema:
+          type: string
+          enum: [command,setused,devices]
+        required: true
+
+      - name: param
+        in: query
+        description: domoticz query parameter
+        schema:
+          type: string
+          enum: ['', 'getversion','switchlight','getuservariables','updateuservariable']
+        required: false
+
+      - name: idx
+        in: query
+        description: domoticz query index
+        schema:
+          type: integer
+          format: int32
+        required: false
+
+      - name: setpoint
+        in: query
+        description: domoticz query setpoint
+        schema:
+          type: number
+        required: false
+
+      - name: used
+        in: query
+        description: domoticz query used
+        schema:
+          type: boolean
+        required: false
+
+      - name: filter
+        in: query
+        description: domoticz query filter
+        schema:
+          type: string
+          enum: ['all','light','weather','temp','utility','wind','rain','uv','baro','zwavealarms']
+        required: false
+
+      - name: order
+        in: query
+        description: domoticz query order
+        schema:
+          type: string
+          enum: ['Name']
+        required: false
+
+      - name: switchcmd
+        in: query
+        description: domoticz query switch command
+        schema:
+          type: string
+          enum: ['On','Off','Toggle','Set Level']
+        required: false
+
+      - name: level
+        in: query
+        description: domoticz query switchcmd level
+        schema:
+          type: number
+        required: false
+
+      - name: vname
+        in: query
+        description: domoticz query user variable name
+        schema:
+          type: string
+        required: false
+
+      - name: vtype
+        in: query
+        description: domoticz query user variable type
+        schema:
+          type: string
+          enum: ['Integer','Float','String','Date','Time']
+        required: false
+
+      - name: vvalue
+        in: query
+        description: domoticz query user variable value
+        schema:
+          type: string
+        required: false
+
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/DomoticzInstanceStatus'
+                  - $ref: '#/components/schemas/DomoticzDeviceStatusList'
+
+components:
+  schemas:
+    DomoticzInstanceStatus:
+      type: object
+      properties:
+        DomoticzUpdateURL:
+          type: string
+        HaveUpdate:
+          type: boolean
+        Revision:
+          type: integer
+        SystemName:
+          type: string
+        UseUpdate:
+          type: boolean
+        build_time:
+          type: string
+          format: date-time
+        dzvents_version:
+          type: string
+        hash:
+          type: string
+        python_version:
+          type: string
+        status:
+          type: string
+        title:
+          type: string
+        version:
+          type: string
+
+    DomoticzDeviceStatus:
+      type: object
+      properties:
+        idx:
+          type: string
+        ID:
+          type: string
+        Name:
+          type: string
+        LastUpdate:
+          type: string
+          format: date-time
+        Data:
+          type: string
+        HardwareID:
+          type: string
+        Description:
+          type: string
+        BatteryLevel:
+          type: integer
+          format: int32
+      required:
+        - idx
+        - ID
+        - Name
+        - LastUpdate
+        - Data
+        - HardwareID
+        - Description
+        - BatteryLevel
+      additionalProperties: true
+
+    DomoticzDeviceStatusList:
+      type: object
+      properties:
+        ActTime:
+          type: integer
+          format: int32
+        AstrTwilightEnd:
+          type: string
+          format: time
+        AstrTwilightStart:
+          type: string
+          format: time
+        CivTwilightEnd:
+          type: string
+          format: time
+        CivTwilightStart:
+          type: string
+          format: time
+        DayLength:
+          type: string
+          format: time
+        NautTwilightEnd:
+          type: string
+          format: time
+        NautTwilightStart:
+          type: string
+          format: time
+        ServerTime:
+          type: string
+          format: date-time
+        SunAtSouth:
+          type: string
+          format: time
+        Sunrise:
+          type: string
+          format: time
+        Sunset:
+          type: string
+          format: time
+        app_version:
+          type: string
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/DomoticzDeviceStatus'

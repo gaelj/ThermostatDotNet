@@ -1,0 +1,58 @@
+@page "/"
+@using System.ComponentModel
+
+@implements IDisposable
+
+@inject TestViewModel vmT
+@inject DomoticzViewModel vmD
+
+
+<button @onclick=@OnClick>Test</button>
+
+@if (vmD.DomoticzInstanceStatus != null) {
+    <div>
+    <p>HaveUpdate: @vmD.DomoticzInstanceStatus.HaveUpdate</p>
+    <p>Title: @vmD.DomoticzInstanceStatus.Title</p>
+    <p>Version: @vmD.DomoticzInstanceStatus.Version</p>
+    <p>Revision: @vmD.DomoticzInstanceStatus.Revision</p>
+    </div>
+}
+@if (vmD.DomoticzDeviceStatusList != null) {
+    <p>DayLength: @vmD.DomoticzDeviceStatusList.DayLength</p>
+    <p>Sunrise: @vmD.DomoticzDeviceStatusList.Sunrise</p>
+    <p>Sunset: @vmD.DomoticzDeviceStatusList.Sunset</p>
+    @foreach (var item in vmD.DomoticzDeviceStatusList.Result)
+    {
+        <p>@item.Name</p>
+    }
+}
+
+@code {
+
+    private void OnPropertyChangedHandler(object sender, PropertyChangedEventArgs e)
+        => InvokeAsync(StateHasChanged);
+
+    protected override async Task OnInitializedAsync()
+    {
+        vmT.PropertyChanged += OnPropertyChangedHandler;
+        vmD.PropertyChanged += OnPropertyChangedHandler;
+        await base.OnInitializedAsync();
+    }
+
+    private async void OnClick() {
+        await vmD.RetrieveDomoticzDeviceStatusList();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender) {
+            InvokeAsync(StateHasChanged);
+        }
+    }
+
+    public void Dispose()
+    {
+        vmT.PropertyChanged -= OnPropertyChangedHandler;
+        vmD.PropertyChanged -= OnPropertyChangedHandler;
+    }
+}
